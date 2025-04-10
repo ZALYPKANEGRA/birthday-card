@@ -1,0 +1,125 @@
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>С Днём Рождения!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffdde1;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Фоновая надпись */
+        .bg-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8vw;
+           color: rgba(179, 54, 94, 0.25);
+            white-space: nowrap;
+            font-family: 'Arial Black', sans-serif;
+            z-index: 1;
+            user-select: none;
+        }
+
+        /* Стиль сердца */
+        .heart {
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            animation: float 8s linear infinite;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+            z-index: 2;
+        }
+
+        /* SVG сердца */
+        .heart svg {
+            width: 100%;
+            height: 100%;
+            fill: #ff4d88;
+        }
+
+        /* Фото внутри сердца */
+        .photo {
+            width: 50%;
+            height: 50%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid white;
+        }
+
+        /* Анимация подъема */
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-30vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-text">С ДНЮХОЙ,БРАТ</div>
+
+    <script>
+        function createHearts() {
+            // SVG путь сердца
+            const heartSVG = `
+                <svg viewBox="0 0 32 29">
+                    <path d="M23.6 0c-3.4 0-6.3 2.7-7.6 5.6C14.7 2.7 11.8 0 8.4 0 3.8 0 0 3.8 0 8.4c0 9.4 9.5 11.9 16 21.2 6.1-9.3 16-12.1 16-21.2C32 3.8 28.2 0 23.6 0z"/>
+                </svg>
+            `;
+
+            // Массив ссылок на фото (замените на свои)
+            const photos = [
+                ' https://i.postimg.cc/pXxg6JwK/image.jpg',
+                'https://i.postimg.cc/bNW1vmqt/photo-2025-03-23-00-04-59.jpg',
+                'https://i.postimg.cc/rw4xR5pY/photo-2025-03-19-22-24-51.jpg',
+                'https://i.postimg.cc/YCQLCkX5/photo-2024-02-07-13-46-21.jpg',
+                'https://i.postimg.cc/hPk7nh08/photo-2024-06-05-12-47-07.jpg'
+            ];
+
+            // Создаем 15 сердец
+            for(let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = heartSVG;
+                
+                // Добавляем фото
+                const img = document.createElement('img');
+                img.className = 'photo';
+                img.src = photos[i % photos.length];
+                heart.appendChild(img);
+
+                // Случайные параметры
+                heart.style.left = Math.random() * 95 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                heart.style.animationDelay = Math.random() * 3 + 's';
+                heart.style.width = (Math.random() * 40 + 80) + 'px';
+
+                document.body.appendChild(heart);
+            }
+        }
+
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
